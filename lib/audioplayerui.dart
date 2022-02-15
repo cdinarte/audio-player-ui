@@ -72,7 +72,7 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
   bool hasNext = false;
   bool hasPrevious = false;
   double playbackPosition = 0.0;
-  AudioPlayerState audioPlayerState = AudioPlayerState.STOPPED;
+  PlayerState audioPlayerState = PlayerState.STOPPED;
   final String trackTitle;
   final String trackSubtitle;
   final String trackUrl;
@@ -159,7 +159,7 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
 
   _initTrackChangeListener() {
     audioPlayer.onPlayerStateChanged
-        .listen((AudioPlayerState audioPlayerStateUpdate) {
+        .listen((PlayerState audioPlayerStateUpdate) {
       setState(() {
         audioPlayerState = audioPlayerStateUpdate;
       });
