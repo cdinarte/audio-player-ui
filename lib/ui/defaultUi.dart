@@ -11,7 +11,7 @@ class DefaultUi extends StatelessWidget {
   final String trackPosition;
   final String trackLength;
   final double playbackPosition;
-  final AudioPlayerState audioPlayerState;
+  final PlayerState audioPlayerState;
   final Function(double position) seekTrack;
 
   const DefaultUi({
@@ -23,7 +23,7 @@ class DefaultUi extends StatelessWidget {
     this.hasNext = false,
     this.hasPrevious = false,
     this.playbackPosition = 0.0,
-    this.audioPlayerState = AudioPlayerState.STOPPED,
+    this.audioPlayerState = PlayerState.STOPPED,
     this.trackPosition = "00:00",
     this.trackLength = "00:00",
     this.seekTrack,
@@ -32,7 +32,7 @@ class DefaultUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final TextStyle descriptionStyle = theme.textTheme.subhead;
+    final TextStyle descriptionStyle = theme.textTheme.subtitle1;
 
     return Card(
         elevation: 6,
@@ -114,11 +114,11 @@ class DefaultUi extends StatelessWidget {
                                     : Container(
                                         child: null,
                                       ),
-                                audioPlayerState == AudioPlayerState.STOPPED ||
+                                audioPlayerState == PlayerState.STOPPED ||
                                         audioPlayerState ==
-                                            AudioPlayerState.PAUSED ||
+                                            PlayerState.PAUSED ||
                                         audioPlayerState ==
-                                            AudioPlayerState.COMPLETED
+                                            PlayerState.COMPLETED
                                     ? FloatingActionButton(
                                         onPressed: () {
                                           audioPlayer.resume();

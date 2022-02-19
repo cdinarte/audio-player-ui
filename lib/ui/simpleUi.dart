@@ -11,7 +11,7 @@ class SimpleUi extends StatelessWidget {
   final String trackPosition;
   final String trackLength;
   final double playbackPosition;
-  final AudioPlayerState audioPlayerState;
+  final PlayerState audioPlayerState;
   final Function(double position) seekTrack;
 
   const SimpleUi(
@@ -45,9 +45,9 @@ class SimpleUi extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Row(
               children: <Widget>[
-                audioPlayerState == AudioPlayerState.STOPPED ||
-                        audioPlayerState == AudioPlayerState.PAUSED ||
-                        audioPlayerState == AudioPlayerState.COMPLETED
+                audioPlayerState == PlayerState.STOPPED ||
+                        audioPlayerState == PlayerState.PAUSED ||
+                        audioPlayerState == PlayerState.COMPLETED
                     ? FloatingActionButton(
                         onPressed: () {
                           audioPlayer.resume();
