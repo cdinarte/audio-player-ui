@@ -35,16 +35,16 @@ class AudioPlayerController {
 
 class AudioPlayerView extends StatefulWidget {
   final AudioPlayerController audioPlayerController;
-  final String trackTitle;
-  final String trackSubtitle;
-  final String trackUrl;
+  final String? trackTitle;
+  final String? trackSubtitle;
+  final String? trackUrl;
   final bool isLocal;
-  final String imageUrl;
+  final String? imageUrl;
   final bool simpleDesign;
 
   const AudioPlayerView(
-      {Key key,
-      @required this.audioPlayerController,
+      {Key? key,
+      required this.audioPlayerController,
       this.trackTitle,
       this.trackSubtitle,
       this.trackUrl,
@@ -68,16 +68,16 @@ class AudioPlayerView extends StatefulWidget {
 class _AudioPlayerViewState extends State<AudioPlayerView> {
   Duration duration = Duration();
   final AudioPlayerController audioPlayerController;
-  AudioPlayer audioPlayer;
+  AudioPlayer? audioPlayer;
   bool hasNext = false;
   bool hasPrevious = false;
   double playbackPosition = 0.0;
   PlayerState audioPlayerState = PlayerState.STOPPED;
-  final String trackTitle;
-  final String trackSubtitle;
-  final String trackUrl;
+  final String? trackTitle;
+  final String? trackSubtitle;
+  final String? trackUrl;
   final bool isLocal;
-  final String imageUrl;
+  final String? imageUrl;
   final bool simpleDesign;
 
   //
@@ -109,8 +109,8 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
   }
 
   _initTrackPlayback() async {
-    await audioPlayer.setUrl(trackUrl, isLocal: isLocal).then((val) {
-      audioPlayer.getDuration().then((duration) {
+    await audioPlayer!.setUrl(trackUrl!, isLocal: isLocal).then((val) {
+      audioPlayer!.getDuration().then((duration) {
         Duration audioPlayerDuration = Duration(milliseconds: duration);
         print("audioPlayerDuration $duration");
         setState(() {
@@ -122,20 +122,20 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
   }
 
   _playTrack() {
-    audioPlayer.play(trackUrl, isLocal: isLocal);
+    audioPlayer!.play(trackUrl!, isLocal: isLocal);
   }
 
   _initPositionChangeListener() async {
-    audioPlayer.onAudioPositionChanged.listen((Duration p) async {
+    audioPlayer!.onAudioPositionChanged.listen((Duration p) async {
       if (p.inMilliseconds ==
-          Duration(milliseconds: await audioPlayer.getDuration())
+          Duration(milliseconds: await audioPlayer!.getDuration())
               .inMilliseconds) {
-        audioPlayer.seek(Duration(seconds: 0));
-        audioPlayer.stop();
+        audioPlayer!.seek(Duration(seconds: 0));
+        audioPlayer!.stop();
       }
       Duration audioPlayerDuration =
-          Duration(milliseconds: await audioPlayer.getDuration());
-      int trackDuration = ((await audioPlayer.getDuration()) / 1000).round();
+          Duration(milliseconds: await audioPlayer!.getDuration());
+      int trackDuration = ((await audioPlayer!.getDuration()) / 1000).round();
       String trackLengthFormat = _printDuration(audioPlayerDuration);
       String trackPositionFormat = _printDuration(p);
       setState(() {
@@ -158,7 +158,7 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
   }
 
   _initTrackChangeListener() {
-    audioPlayer.onPlayerStateChanged
+    audioPlayer!.onPlayerStateChanged
         .listen((PlayerState audioPlayerStateUpdate) {
       setState(() {
         audioPlayerState = audioPlayerStateUpdate;
@@ -167,9 +167,9 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
   }
 
   _seekTrack(double position) async {
-    int trackDuration = ((await audioPlayer.getDuration()) / 1000).round();
+    int trackDuration = ((await audioPlayer!.getDuration()) / 1000).round();
     int seekPosition = (position * trackDuration).round();
-    audioPlayer.seek(Duration(seconds: seekPosition));
+    audioPlayer!.seek(Duration(seconds: seekPosition));
   }
 
   @override
@@ -205,8 +205,8 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
 
   @override
   void dispose() {
-    audioPlayer.release();
-    audioPlayer.dispose();
+    audioPlayer!.release();
+    audioPlayer!.dispose();
     super.dispose();
   }
 }

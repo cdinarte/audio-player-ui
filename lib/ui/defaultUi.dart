@@ -2,20 +2,20 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class DefaultUi extends StatelessWidget {
-  final AudioPlayer audioPlayer;
-  final String imageUrl;
-  final String trackTitle;
-  final String trackSubtitle;
+  final AudioPlayer? audioPlayer;
+  final String? imageUrl;
+  final String? trackTitle;
+  final String? trackSubtitle;
   final bool hasNext;
   final bool hasPrevious;
   final String trackPosition;
   final String trackLength;
   final double playbackPosition;
   final PlayerState audioPlayerState;
-  final Function(double position) seekTrack;
+  final Function(double position)? seekTrack;
 
   const DefaultUi({
-    Key key,
+    Key? key,
     this.audioPlayer,
     this.imageUrl,
     this.trackTitle,
@@ -32,7 +32,7 @@ class DefaultUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final TextStyle descriptionStyle = theme.textTheme.subtitle1;
+    final TextStyle descriptionStyle = theme.textTheme.subtitle1!;
 
     return Card(
         elevation: 6,
@@ -48,7 +48,7 @@ class DefaultUi extends StatelessWidget {
             imageUrl != null
                 ? Column(
                     children: <Widget>[
-                      Image.network(imageUrl),
+                      Image.network(imageUrl!),
                       Divider(),
                     ],
                   )
@@ -79,7 +79,7 @@ class DefaultUi extends StatelessWidget {
                                   children: <Widget>[
                                     trackTitle != null
                                         ? Text(
-                                            trackTitle,
+                                            trackTitle!,
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w500),
@@ -88,7 +88,7 @@ class DefaultUi extends StatelessWidget {
                                             child: null,
                                           ),
                                     trackSubtitle != null
-                                        ? Text(trackSubtitle)
+                                        ? Text(trackSubtitle!)
                                         : Container(
                                             child: null,
                                           ),
@@ -121,7 +121,7 @@ class DefaultUi extends StatelessWidget {
                                             PlayerState.COMPLETED
                                     ? FloatingActionButton(
                                         onPressed: () {
-                                          audioPlayer.resume();
+                                          audioPlayer!.resume();
                                         },
                                         tooltip: 'Play',
                                         backgroundColor: theme.accentColor,
@@ -133,7 +133,7 @@ class DefaultUi extends StatelessWidget {
                                       )
                                     : FloatingActionButton(
                                         onPressed: () {
-                                          audioPlayer.pause();
+                                          audioPlayer!.pause();
                                         },
                                         tooltip: 'Pause',
                                         backgroundColor: theme.accentColor,

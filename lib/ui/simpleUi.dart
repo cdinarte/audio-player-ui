@@ -2,20 +2,20 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class SimpleUi extends StatelessWidget {
-  final AudioPlayer audioPlayer;
-  final String imageUrl;
-  final String trackTitle;
-  final String trackSubtitle;
-  final bool hasNext;
-  final bool hasPrevious;
-  final String trackPosition;
-  final String trackLength;
-  final double playbackPosition;
-  final PlayerState audioPlayerState;
-  final Function(double position) seekTrack;
+  final AudioPlayer? audioPlayer;
+  final String? imageUrl;
+  final String? trackTitle;
+  final String? trackSubtitle;
+  final bool? hasNext;
+  final bool? hasPrevious;
+  final String? trackPosition;
+  final String? trackLength;
+  final double? playbackPosition;
+  final PlayerState? audioPlayerState;
+  final Function(double position)? seekTrack;
 
   const SimpleUi(
-      {Key key,
+      {Key? key,
       this.audioPlayer,
       this.imageUrl,
       this.trackTitle,
@@ -50,7 +50,7 @@ class SimpleUi extends StatelessWidget {
                         audioPlayerState == PlayerState.COMPLETED
                     ? FloatingActionButton(
                         onPressed: () {
-                          audioPlayer.resume();
+                          audioPlayer!.resume();
                         },
                         tooltip: 'Play',
                         backgroundColor: theme.accentColor,
@@ -62,7 +62,7 @@ class SimpleUi extends StatelessWidget {
                       )
                     : FloatingActionButton(
                         onPressed: () {
-                          audioPlayer.pause();
+                          audioPlayer!.pause();
                         },
                         tooltip: 'Pause',
                         backgroundColor: theme.accentColor,
@@ -86,7 +86,7 @@ class SimpleUi extends StatelessWidget {
                               trackShape: RoundedRectSliderTrackShape()),
                           child: Slider(
                             onChanged: seekTrack,
-                            value: playbackPosition,
+                            value: playbackPosition!,
                             activeColor: theme.accentColor,
                             inactiveColor: Colors.white,
                           ),
@@ -102,12 +102,12 @@ class SimpleUi extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              trackPosition,
+                              trackPosition!,
                               style:
                                   TextStyle(fontSize: 12, color: Colors.white),
                             ),
                             Text(
-                              trackLength,
+                              trackLength!,
                               style:
                                   TextStyle(fontSize: 12, color: Colors.white),
                             ),
@@ -124,7 +124,7 @@ class SimpleUi extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 12.0),
           child: Text(
-            trackTitle,
+            trackTitle!,
             style: TextStyle(
                 color: Color.fromRGBO(188, 189, 193, 1.0),
                 fontStyle: FontStyle.italic),
