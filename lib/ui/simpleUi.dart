@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 
 class SimpleUi extends StatelessWidget {
   final AudioPlayer audioPlayer;
-  final String imageUrl;
-  final String trackTitle;
-  final String trackSubtitle;
+  final String? imageUrl;
+  final String? trackTitle;
+  final String? trackSubtitle;
   final bool hasNext;
   final bool hasPrevious;
   final String trackPosition;
   final String trackLength;
   final double playbackPosition;
-  final AudioPlayerState audioPlayerState;
+  final PlayerState? audioPlayerState; // Updated type
   final Function(double position) seekTrack;
 
-  const SimpleUi(
-      {Key key,
-      this.audioPlayer,
-      this.imageUrl,
-      this.trackTitle,
-      this.trackSubtitle,
-      this.hasNext,
-      this.hasPrevious,
-      this.trackPosition,
-      this.trackLength,
-      this.playbackPosition,
-      this.audioPlayerState,
-      this.seekTrack})
-      : super(key: key);
+  const SimpleUi({
+    required Key key,
+    required this.audioPlayer,
+    required this.imageUrl,
+    required this.trackTitle,
+    required this.trackSubtitle,
+    required this.hasNext,
+    required this.hasPrevious,
+    required this.trackPosition,
+    required this.trackLength,
+    required this.playbackPosition,
+    required this.audioPlayerState,
+    required this.seekTrack,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,40 +38,40 @@ class SimpleUi extends StatelessWidget {
       children: <Widget>[
         Card(
           elevation: 6,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(12.0))),
-          color: Color.fromRGBO(21, 27, 33, 1.0),
+          color: const Color.fromRGBO(21, 27, 33, 1.0),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
               children: <Widget>[
-                audioPlayerState == AudioPlayerState.STOPPED ||
-                        audioPlayerState == AudioPlayerState.PAUSED ||
-                        audioPlayerState == AudioPlayerState.COMPLETED
+                audioPlayerState == PlayerState.stopped ||
+                    audioPlayerState == PlayerState.paused ||
+                    audioPlayerState == PlayerState.completed
                     ? FloatingActionButton(
-                        onPressed: () {
-                          audioPlayer.resume();
-                        },
-                        tooltip: 'Play',
-                        backgroundColor: theme.accentColor,
-                        child: Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                        ),
-                        mini: true,
-                      )
+                  onPressed: () {
+                    audioPlayer.resume();
+                  },
+                  tooltip: 'Play',
+                  backgroundColor: theme.colorScheme.secondary,
+                  child: const Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                  ),
+                  mini: true,
+                )
                     : FloatingActionButton(
-                        onPressed: () {
-                          audioPlayer.pause();
-                        },
-                        tooltip: 'Pause',
-                        backgroundColor: theme.accentColor,
-                        child: Icon(
-                          Icons.pause,
-                          color: Colors.white,
-                        ),
-                        mini: true,
-                      ),
+                  onPressed: () {
+                    audioPlayer.pause();
+                  },
+                  tooltip: 'Pause',
+                  backgroundColor: theme.colorScheme.secondary,
+                  child: const Icon(
+                    Icons.pause,
+                    color: Colors.white,
+                  ),
+                  mini: true,
+                ),
                 Expanded(
                   child: Column(
                     children: <Widget>[
@@ -82,12 +82,12 @@ class SimpleUi extends StatelessWidget {
                           top: 0.0,
                         ),
                         child: SliderTheme(
-                          data: SliderThemeData(
+                          data: const SliderThemeData(
                               trackShape: RoundedRectSliderTrackShape()),
                           child: Slider(
                             onChanged: seekTrack,
                             value: playbackPosition,
-                            activeColor: theme.accentColor,
+                            activeColor: theme.colorScheme.secondary,
                             inactiveColor: Colors.white,
                           ),
                         ),
@@ -103,13 +103,13 @@ class SimpleUi extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               trackPosition,
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.white),
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.white),
                             ),
                             Text(
                               trackLength,
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.white),
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.white),
                             ),
                           ],
                         ),
@@ -124,8 +124,8 @@ class SimpleUi extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 12.0),
           child: Text(
-            trackTitle,
-            style: TextStyle(
+            trackTitle ?? '',
+            style: const TextStyle(
                 color: Color.fromRGBO(188, 189, 193, 1.0),
                 fontStyle: FontStyle.italic),
           ),
