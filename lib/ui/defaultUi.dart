@@ -100,6 +100,7 @@ class DefaultUi extends StatelessWidget {
                               onPressed: () {},
                             )
                                 : const SizedBox.shrink(),
+                            audioPlayerState == null ||
                             audioPlayerState == PlayerState.stopped ||
                                 audioPlayerState == PlayerState.paused ||
                                 audioPlayerState == PlayerState.completed
